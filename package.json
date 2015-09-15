@@ -10,10 +10,12 @@
   "mainInput": "main",
   "mainOutput": "main",
   "dependencies": {
-    "react-router": "0.13.x",
-    "reflux": "^0.2.7", 
+    "bootstrap": "^3.3.5",
+    "normalize.css": "~3.0.3",
     "react": "0.13.x",
-    "normalize.css": "~3.0.3"
+    "react-bootstrap": "^0.25.2",
+    "react-router": "0.13.x",
+    "reflux": "^0.2.7"
   },
   "devDependencies": {
     "babel": "^5.0.0",
