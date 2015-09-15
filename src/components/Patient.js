@@ -6,7 +6,9 @@ const Patient = React.createClass({
 
   setupObservations: function(patient) {
     this.setState({ observations: [] });
-    patient.observations(null, (observations) => this.setState({ observations: observations }));
+    if (patient) {
+      patient.observations(null, (observations) => this.setState({ observations: observations }));
+    }
   },
 
   componentWillMount: function() {
@@ -18,12 +20,21 @@ const Patient = React.createClass({
   },
 
   render: function() {
+
     let patient = this.props.patient;
-    let createObservation = (o) => <p>{o.displayType}: {o.value} ({o.date.toDateString()})</p>;
+    if (!patient) {
+      return <div/>;
+    }
+
+    let createObservation = (o) => <li>{o.displayType}: {o.value} ({o.date.toDateString()})</li>;
+
+    let noObservationsMessage = this.state.observations.length === 0 ? <p>No observations</p> : '';
+
     return (
-      <div>
+      <div className="col-xs-9">
         <h1>{patient.name}</h1>
-        {this.state.observations.map(createObservation)}
+        {noObservationsMessage}
+        <ul>{this.state.observations.map(createObservation)}</ul>
       </div>
     );
   }
