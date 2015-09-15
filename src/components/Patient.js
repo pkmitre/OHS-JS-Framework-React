@@ -4,14 +4,27 @@ const React = require('react/addons');
 
 const Patient = React.createClass({
 
-  contextTypes: {
-    router: React.PropTypes.func
+  setupObservations: function(patient) {
+    this.setState({ observations: [] });
+    patient.observations(null, (observations) => this.setState({ observations: observations }));
+  },
+
+  componentWillMount: function() {
+    this.setupObservations(this.props.patient);
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    this.setupObservations(newProps.patient);
   },
 
   render: function() {
-    let currentParams = this.context.router.getCurrentParams();
+    let patient = this.props.patient;
+    let createObservation = (o) => <p>{o.displayType}: {o.value} ({o.date.toDateString()})</p>;
     return (
-      <div>PATIENT {currentParams.id}</div>
+      <div>
+        <h1>{patient.name}</h1>
+        {this.state.observations.map(createObservation)}
+      </div>
     );
   }
 });
