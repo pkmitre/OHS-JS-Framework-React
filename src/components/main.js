@@ -13,7 +13,7 @@ const content = document.getElementById('content');
 const Routes = (
   <Route handler={ReactBmiApp}>
     <Route name="/" handler={Patients}>
-      <Route path="/patient/:id" handler={Patient}/>
+      <Route name="patient" path="/patient/:id" handler={Patient}/>
     </Route>
     <Route name="about" handler={About}/>
   </Route>
