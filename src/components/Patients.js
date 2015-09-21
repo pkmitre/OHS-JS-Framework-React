@@ -13,7 +13,7 @@ const Patients = React.createClass({
     let createPatient = (patient) => {
       let navClass = React.addons.classSet({ 'nav-item': true, 'active': patient.id === this.props.params.id });
       return (
-        <li className={navClass}>
+        <li className={navClass} key={patient.id}>
           <Link className="nav-link" to="patient" params={patient}>{patient.name}</Link>
         </li>
       );

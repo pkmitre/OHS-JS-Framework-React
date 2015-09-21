@@ -7,7 +7,7 @@ const Patient = React.createClass({
   setupObservations: function(patient) {
     this.setState({ observations: [] });
     if (patient) {
-      patient.observations(null, (observations) => this.setState({ observations: observations }));
+      patient.derivedBMIObservations((observations) => this.setState({ observations: observations }));
     }
   },
 
@@ -26,7 +26,7 @@ const Patient = React.createClass({
       return <div/>;
     }
 
-    let createObservation = (o) => <li>{o.displayType}: {o.value} ({o.date.toDateString()})</li>;
+    let createObservation = (o) => <li key={o.id}>{o.displayType}: {o.value} {o.unit} ({o.date.toDateString()})</li>;
 
     let noObservationsMessage = this.state.observations.length === 0 ? <p>No observations</p> : '';
 
