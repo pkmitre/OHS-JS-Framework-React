@@ -102,7 +102,7 @@ class Patient {
         let weight = indexedObservations[date]['29463-7'];
         if (height && weight) {
           let bmi = Math.round((weight.value * 0.45) / (Math.pow(height.value * 0.025, 2)));
-          let bmiObservation = new Observation({ valueQuantity: { value: bmi, unit: '' }, code: { text: 'BMI' }, effectiveDateTime: date });
+          let bmiObservation = new Observation({ id: date, valueQuantity: { value: bmi, unit: '' }, code: { text: 'BMI' }, effectiveDateTime: date });
           results.push(bmiObservation);
         }
       }
