@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react/addons');
+const BmiChart = require('./BmiChart.js');
 
 const Patient = React.createClass({
 
@@ -35,6 +36,7 @@ const Patient = React.createClass({
         <h1>{patient.name}</h1>
         {noObservationsMessage}
         <ul>{this.state.observations.map(createObservation)}</ul>
+        <BmiChart observations={this.state.observations}/>
       </div>
     );
   }
