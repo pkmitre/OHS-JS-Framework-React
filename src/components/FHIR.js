@@ -2,8 +2,6 @@
 
 const $ = require('webpack-dev-server/client/web_modules/jquery');
 
-//const endpoint = 'http://argonaut.healthintersections.com.au/open';
-//const endpoint = 'http://spark.furore.com/fhir';
 const endpoint = 'http://mm181308-pc:3001';
 
 class Observation {
@@ -45,21 +43,11 @@ class Patient {
   }
 
   get name() {
-    //return `${this.resource.name[0].given[0]} ${this.resource.name[0].family[0]}`;
-    let names = [];
-    if (this.resource.name) {
-      if (this.resource.name[0].given) {
-        names.push(this.resource.name[0].given[0]);
-      }
-      if (this.resource.name[0].family) {
-        names.push(this.resource.name[0].family[0]);
-      }
-    }
-    if (names.length > 0) {
-      return names.join(' ');
-    } else {
-      return 'UNKNOWN';
-    }
+    return `${this.givenName} ${this.familyName}`;
+  }
+
+  get givenName() {
+    return this.resource.name[0].given[0];
   }
 
   get familyName() {
@@ -67,15 +55,13 @@ class Patient {
   }
 
   get id() {
-    // For some reason the furore endpoint IDs need to be pruned for Ewut's server
-    //return this.resource.id.replace(`${endpoint}/Patient/`, '');
     return this.resource.id;
   }
 
   observations(code, callback) {
-    let codeQuery = code ? `&code=${code}` : '';
-    // Some of the pruned ID needs to be tacked back on...
-    $.getJSON(`${endpoint}/Observation?subject=Patient/${this.id}${codeQuery}`, (data) => {
+    let params = { subject: `Patient/${this.id}` };
+    if (code) { params.code = code; }
+    $.getJSON(`${endpoint}/Observation`, params, (data) => {
       callback(data.entry.map((o) => new Observation(o.resource)));
     });
   }
