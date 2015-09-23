@@ -1,6 +1,6 @@
 'use strict';
 
-const $ = require('webpack-dev-server/client/web_modules/jquery');
+const $ = require('jquery');
 
 const endpoint = 'http://mm181308-pc:3001';
 
@@ -102,22 +102,6 @@ class FHIR {
   static patients(callback) {
     $.getJSON(`${endpoint}/Patient`, (data) => {
       let patients = data.entry.map((p) => new Patient(p.resource));
-      // Sort by name; underscore would make this easier...
-      patients = patients.sort((a, b) => {
-        if (a.familyName < b.familyName) {
-          return -1;
-        } else if (a.familyName > b.familyName) {
-          return 1;
-        } else {
-          if (a.givenName < b.givenName) {
-            return -1;
-          } else if (a.givenName > b.givenName) {
-            return 1;
-          } else {
-            return 0;
-          }
-        }
-      });
       callback(patients);
     });
   }

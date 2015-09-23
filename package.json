@@ -12,6 +12,8 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "chart.js": "^1.0.2",
+    "jquery": "^2.1.4",
+    "lodash": "^3.10.1",
     "normalize.css": "~3.0.3",
     "react": "0.13.x",
     "react-bootstrap": "^0.25.2",
